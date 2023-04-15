@@ -13,7 +13,7 @@ import {
 } from "react-native"
 import { DrawerLayout, DrawerState } from "react-native-gesture-handler"
 import { useSharedValue, withTiming } from "react-native-reanimated"
-import { ListItem, Screen, Text } from "../../components"
+import { ListItem, Screen, Text, TrackMap } from "../../components"
 import { isRTL } from "../../i18n"
 import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavigator"
 import { colors, spacing } from "../../theme"
@@ -35,7 +35,7 @@ interface DemoListItem {
   handleScroll?: (sectionIndex: number, itemIndex?: number) => void
 }
 
-const slugify = (str) =>
+const slugify = (str: string) =>
   str
     .toLowerCase()
     .trim()
@@ -43,46 +43,47 @@ const slugify = (str) =>
     .replace(/[\s_-]+/g, "-")
     .replace(/^-+|-+$/g, "")
 
-const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
-  const sectionSlug = item.name.toLowerCase()
+// const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
+//   const sectionSlug = item.name.toLowerCase()
 
-  return (
-    <View>
-      <Link to={`/showroom/${sectionSlug}`} style={$menuContainer}>
-        <Text preset="bold">{item.name}</Text>
-      </Link>
-      {item.useCases.map((u) => {
-        const itemSlug = slugify(u)
+//   return (
+//     <View>
+//       <Link to={`/showroom/${sectionSlug}`} style={$menuContainer}>
+//         <Text preset="bold">{item.name}</Text>
+//       </Link>
+//       {item.useCases.map((u) => {
+//         const itemSlug = slugify(u)
 
-        return (
-          <Link key={`section${sectionIndex}-${u}`} to={`/showroom/${sectionSlug}/${itemSlug}`}>
-            <Text>{u}</Text>
-          </Link>
-        )
-      })}
-    </View>
-  )
-}
+//         return (
+//           <Link key={`section${sectionIndex}-${u}`} to={`/showroom/${sectionSlug}/${itemSlug}`}>
+//             <Text>{u}</Text>
+//           </Link>
+//         )
+//       })}
+//     </View>
+//   )
+// }
 
-const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) => {
-  return (
-    <View>
-      <Text onPress={() => handleScroll(sectionIndex)} preset="bold" style={$menuContainer}>
-        {item.name}
-      </Text>
-      {item.useCases.map((u, index) => (
-        <ListItem
-          key={`section${sectionIndex}-${u}`}
-          onPress={() => handleScroll(sectionIndex, index + 1)}
-          text={u}
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-        />
-      ))}
-    </View>
-  )
-}
+// const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) => {
+//   return (
+//     <View>
+//       <Text onPress={() => handleScroll(sectionIndex)} preset="bold" style={$menuContainer}>
+//         {item.name}
+//       </Text>
+//       {item.useCases.map((u, index) => (
+//         <ListItem
+//           key={`section${sectionIndex}-${u}`}
+//           onPress={() => handleScroll(sectionIndex, index + 1)}
+//           text={u}
+//           rightIcon={isRTL ? "caretLeft" : "caretRight"}
+//         />
+//       ))}
+//     </View>
+//   )
+// }
 
-const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem })
+// const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem })
+
 
 export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
   function DemoShowroomScreen(_props) {
@@ -95,63 +96,63 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
     const route = useRoute<RouteProp<DemoTabParamList, "DemoShowroom">>()
     const params = route.params
 
-    // handle Web links
-    React.useEffect(() => {
-      if (route.params) {
-        const demoValues = Object.values(Demos)
-        const findSectionIndex = demoValues.findIndex(
-          (x) => x.name.toLowerCase() === params.queryIndex,
-        )
-        let findItemIndex = 0
-        if (params.itemIndex) {
-          try {
-            findItemIndex =
-              demoValues[findSectionIndex].data.findIndex(
-                (u) => slugify(u.props.name) === params.itemIndex,
-              ) + 1
-          } catch (err) {
-            console.error(err)
-          }
-        }
-        handleScroll(findSectionIndex, findItemIndex)
-      }
-    }, [route])
+    // // handle Web links
+    // React.useEffect(() => {
+    //   if (route.params) {
+    //     const demoValues = Object.values(Demos)
+    //     const findSectionIndex = demoValues.findIndex(
+    //       (x) => x.name.toLowerCase() === params.queryIndex,
+    //     )
+    //     let findItemIndex = 0
+    //     if (params.itemIndex) {
+    //       try {
+    //         findItemIndex =
+    //           demoValues[findSectionIndex].data.findIndex(
+    //             (u) => slugify(u.props.name) === params.itemIndex,
+    //           ) + 1
+    //       } catch (err) {
+    //         console.error(err)
+    //       }
+    //     }
+    //     handleScroll(findSectionIndex, findItemIndex)
+    //   }
+    // }, [route])
 
-    const toggleDrawer = () => {
-      if (!open) {
-        setOpen(true)
-        drawerRef.current?.openDrawer({ speed: 2 })
-      } else {
-        setOpen(false)
-        drawerRef.current?.closeDrawer({ speed: 2 })
-      }
-    }
+    // const toggleDrawer = () => {
+    //   if (!open) {
+    //     setOpen(true)
+    //     drawerRef.current?.openDrawer({ speed: 2 })
+    //   } else {
+    //     setOpen(false)
+    //     drawerRef.current?.closeDrawer({ speed: 2 })
+    //   }
+    // }
 
-    const handleScroll = (sectionIndex: number, itemIndex = 0) => {
-      listRef.current.scrollToLocation({
-        animated: true,
-        itemIndex,
-        sectionIndex,
-      })
-      toggleDrawer()
-    }
+    // const handleScroll = (sectionIndex: number, itemIndex = 0) => {
+    //   listRef.current.scrollToLocation({
+    //     animated: true,
+    //     itemIndex,
+    //     sectionIndex,
+    //   })
+    //   toggleDrawer()
+    // }
 
-    const scrollToIndexFailed = (info: {
-      index: number
-      highestMeasuredFrameIndex: number
-      averageItemLength: number
-    }) => {
-      listRef.current?.getScrollResponder()?.scrollToEnd()
-      timeout.current = setTimeout(
-        () =>
-          listRef.current?.scrollToLocation({
-            animated: true,
-            itemIndex: info.index,
-            sectionIndex: 0,
-          }),
-        50,
-      )
-    }
+    // const scrollToIndexFailed = (info: {
+    //   index: number
+    //   highestMeasuredFrameIndex: number
+    //   averageItemLength: number
+    // }) => {
+    //   listRef.current?.getScrollResponder()?.scrollToEnd()
+    //   timeout.current = setTimeout(
+    //     () =>
+    //       listRef.current?.scrollToLocation({
+    //         animated: true,
+    //         itemIndex: info.index,
+    //         sectionIndex: 0,
+    //       }),
+    //     50,
+    //   )
+    // }
 
     useEffect(() => {
       return () => timeout.current && clearTimeout(timeout.current)
@@ -160,48 +161,48 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
     const $drawerInsets = useSafeAreaInsetsStyle(["top"])
 
     return (
-      <DrawerLayout
-        ref={drawerRef}
-        drawerWidth={Platform.select({ default: 326, web: Dimensions.get("window").width * 0.3 })}
-        drawerType={"slide"}
-        drawerPosition={isRTL ? "right" : "left"}
-        overlayColor={open ? colors.palette.overlay20 : "transparent"}
-        onDrawerSlide={(drawerProgress) => {
-          progress.value = open ? 1 - drawerProgress : drawerProgress
-        }}
-        onDrawerStateChanged={(newState: DrawerState, drawerWillShow: boolean) => {
-          if (newState === "Settling") {
-            progress.value = withTiming(drawerWillShow ? 1 : 0, {
-              duration: 250,
-            })
-            setOpen(drawerWillShow)
-          }
-        }}
-        renderNavigationView={() => (
-          <View style={[$drawer, $drawerInsets]}>
-            <View style={$logoContainer}>
-              <Image source={logo} style={$logoImage} />
-            </View>
+      // <DrawerLayout
+      //   ref={drawerRef}
+      //   drawerWidth={Platform.select({ default: 326, web: Dimensions.get("window").width * 0.3 })}
+      //   drawerType={"slide"}
+      //   drawerPosition={isRTL ? "right" : "left"}
+      //   overlayColor={open ? colors.palette.overlay20 : "transparent"}
+      //   onDrawerSlide={(drawerProgress) => {
+      //     progress.value = open ? 1 - drawerProgress : drawerProgress
+      //   }}
+      //   onDrawerStateChanged={(newState: DrawerState, drawerWillShow: boolean) => {
+      //     if (newState === "Settling") {
+      //       progress.value = withTiming(drawerWillShow ? 1 : 0, {
+      //         duration: 250,
+      //       })
+      //       setOpen(drawerWillShow)
+      //     }
+      //   }}
+      //   renderNavigationView={() => (
+      //     <View style={[$drawer, $drawerInsets]}>
+      //       <View style={$logoContainer}>
+      //         <Image source={logo} style={$logoImage} />
+      //       </View>
 
-            <FlatList<{ name: string; useCases: string[] }>
-              ref={menuRef}
-              contentContainerStyle={$flatListContentContainer}
-              data={Object.values(Demos).map((d) => ({
-                name: d.name,
-                useCases: d.data.map((u) => u.props.name),
-              }))}
-              keyExtractor={(item) => item.name}
-              renderItem={({ item, index: sectionIndex }) => (
-                <ShowroomListItem {...{ item, sectionIndex, handleScroll }} />
-              )}
-            />
-          </View>
-        )}
-      >
+      //       <FlatList<{ name: string; useCases: string[] }>
+      //         ref={menuRef}
+      //         contentContainerStyle={$flatListContentContainer}
+      //         data={Object.values(Demos).map((d) => ({
+      //           name: d.name,
+      //           useCases: d.data.map((u) => u.props.name),
+      //         }))}
+      //         keyExtractor={(item) => item.name}
+      //         renderItem={({ item, index: sectionIndex }) => (
+      //           <ShowroomListItem {...{ item, sectionIndex, handleScroll }} />
+      //         )}
+      //       />
+      //     </View>
+      //   )}
+      // >
         <Screen preset="fixed" safeAreaEdges={["top"]} contentContainerStyle={$screenContainer}>
-          <DrawerIconButton onPress={toggleDrawer} {...{ open, progress }} />
-
-          <SectionList
+          {/* <DrawerIconButton onPress={toggleDrawer} {...{ open, progress }} /> */}
+          <TrackMap />
+          {/* <SectionList
             ref={listRef}
             contentContainerStyle={$sectionListContentContainer}
             stickySectionHeadersEnabled={false}
@@ -213,7 +214,7 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                 <Text preset="heading" tx="demoShowroomScreen.jumpStart" />
               </View>
             }
-            onScrollToIndexFailed={scrollToIndexFailed}
+            // onScrollToIndexFailed={scrollToIndexFailed}
             renderSectionHeader={({ section }) => {
               return (
                 <View>
@@ -224,22 +225,15 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
                 </View>
               )
             }}
-          />
+          /> */}
         </Screen>
-      </DrawerLayout>
+      // </DrawerLayout>
     )
   }
 
 const $screenContainer: ViewStyle = {
   flex: 1,
-}
-
-const $drawer: ViewStyle = {
-  flex: 1,
-}
-
-const $flatListContentContainer: ViewStyle = {
-  paddingHorizontal: spacing.large,
+  // paddingTop: spacing.large + spacing.extraLarge,
 }
 
 const $sectionListContentContainer: ViewStyle = {

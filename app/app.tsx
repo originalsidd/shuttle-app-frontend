@@ -12,7 +12,7 @@
 import "./i18n"
 import "./utils/ignoreWarnings"
 import { useFonts } from "expo-font"
-import React from "react"
+import React, {createContext} from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 import * as Linking from "expo-linking"
 import { useInitialRootStore } from "./models"
@@ -22,6 +22,7 @@ import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
 import { setupReactotron } from "./services/reactotron"
 import Config from "./config"
+
 
 // Set up Reactotron, which is a free desktop app for inspecting and debugging
 // React Native apps. Learn more here: https://github.com/infinitered/reactotron
@@ -65,6 +66,7 @@ interface AppProps {
   hideSplashScreen: () => Promise<void>
 }
 
+let MyContext;
 /**
  * This is the root component of our app.
  */
@@ -75,6 +77,11 @@ function App(props: AppProps) {
     onNavigationStateChange,
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
+
+  MyContext = createContext({
+    value: [1,4,7],
+    setValue: (value: any) => value
+  });
 
   const [areFontsLoaded] = useFonts(customFontsToLoad)
 
@@ -100,19 +107,22 @@ function App(props: AppProps) {
     prefixes: [prefix],
     config,
   }
-
+  
   // otherwise, we're ready to render the app
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
-        <AppNavigator
-          linking={linking}
-          initialState={initialNavigationState}
-          onStateChange={onNavigationStateChange}
-        />
+        <MyContext.Provider value={[1,1,1]}>
+          <AppNavigator
+            linking={linking}
+            initialState={initialNavigationState}
+            onStateChange={onNavigationStateChange}
+            />
+          </MyContext.Provider>
       </ErrorBoundary>
     </SafeAreaProvider>
   )
 }
+export {MyContext};
 
-export default App
+export default App;
