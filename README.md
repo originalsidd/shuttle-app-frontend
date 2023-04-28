@@ -15,7 +15,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="static/images/logo.png" alt="Logo" width="400">
+    <img src="assets/images/shuttle.png" alt="Logo" width="400">
   </a>
 
   <h3 align="center">Shuttle App</h3>
@@ -96,4 +96,4 @@ Project Link: [https://github.com/originalsidd/shuttle-app-frontend](https://git
 [issues-url]: https://github.com/originalsidd/shuttle-app-frontend/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/siddharthpal20
-[product-screenshot]: assets/images/shuttle.png
+[product-screenshot]: assets/images/shuttle3.jpg
