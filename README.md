@@ -21,9 +21,7 @@
   <h3 align="center">Shuttle App</h3>
 
   <p align="center">
-    3D Version of the famous game about flying birds and dodging pillars
-    <br />
-    <a href="https://happy-bird.vercel.app/"><strong>Explore the game »</strong></a>
+    Shuttle tracking app to track shuttle inside a university/college campus without the need of GPS i.e., using static sensors along the route. Additional capabilities include delay and arrival time prediction.
     <br />
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
@@ -36,7 +34,7 @@
 
 ## About The Project
 
-![Happy Bird Main Menu][product-screenshot]
+![Main Menu][product-screenshot]
 
 The proposed system consists of three main modules. First module is the IOT data
 collection module which consists of a microcontroller, Arduino along with sensors to
@@ -84,18 +82,18 @@ This project is built with:
 
 Siddharth Pal - [@originalsidd\_](https://www.instagram.com/originalsidd_) - originalsidd@gmail.com
 
-Project Link: [https://github.com/originalsidd/happy-bird](https://github.com/originalsidd/happy-bird)
+Project Link: [https://github.com/originalsidd/shuttle-app-frontend](https://github.com/originalsidd/shuttle-app-frontend)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[forks-shield]: https://img.shields.io/github/forks/originalsidd/happy-bird?style=for-the-badge
-[forks-url]: https://github.com/originalsidd/happy-bird/network/members
-[stars-shield]: https://img.shields.io/github/stars/originalsidd/happy-bird?style=for-the-badge
-[stars-url]: https://github.com/originalsidd/happy-bird/stargazers
-[issues-shield]: https://img.shields.io/github/issues/originalsidd/happy-bird?style=for-the-badge
-[issues-url]: https://github.com/originalsidd/happy-bird/issues
+[forks-shield]: https://img.shields.io/github/forks/originalsidd/shuttle-app-frontend?style=for-the-badge
+[forks-url]: https://github.com/originalsidd/shuttle-app-frontend/network/members
+[stars-shield]: https://img.shields.io/github/stars/originalsidd/shuttle-app-frontend?style=for-the-badge
+[stars-url]: https://github.com/originalsidd/shuttle-app-frontend/stargazers
+[issues-shield]: https://img.shields.io/github/issues/originalsidd/shuttle-app-frontend?style=for-the-badge
+[issues-url]: https://github.com/originalsidd/shuttle-app-frontend/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/siddharthpal20
-[product-screenshot]: static/images/Screenshot.png
+[product-screenshot]: assets/images/shuttle.png
